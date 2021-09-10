@@ -10,6 +10,8 @@ import SwiftUI
 struct DetailView: View {
     var data : apiData
     var body: some View {
-        Text(data.accident_date)
+        if data.accident_date != nil{
+            Text(data.accident_date!)
+        }
     }
 }
