@@ -7,11 +7,6 @@
 
 import Foundation
 
-struct datas {
-    var data : apiData
-    var index : Int
-}
-
 struct apiData: Codable,Identifiable,Equatable {
     let accident_date:String?
     let accident_time:String?

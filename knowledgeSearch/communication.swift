@@ -11,7 +11,7 @@ import Alamofire
 class Communication:ObservableObject{
     
     let baseURL = "http://knowledge-search.intra.sharedom.net/"
-    var token = ""
+    var token = UserDefaults.standard.string(forKey: "token") ?? ""
     var keyword = ""
     var start = 0
     var rows = "20"
@@ -19,11 +19,11 @@ class Communication:ObservableObject{
         return start > 0
       }
     var cangoforward: Bool {
-        return start < APIData[0].numFound
+        return start < APIData[0].numFound ?? 0
       }
     
     @Published var APIData : [apiData] = []
-    @Published var islogin = false
+    @Published var islogin = UserDefaults.standard.bool(forKey: "islogin") ?? false
     
     func login(){
         let url = baseURL + "qa_api/api/token/"
@@ -49,9 +49,12 @@ class Communication:ObservableObject{
         .responseJSON { response in
             if let result = response.value as? [String: Any] {
                 if let statusCode = response.response?.statusCode {
+                    
                     self.islogin = true
-                    print(result)
+                    UserDefaults.standard.set(self.islogin, forKey: "islogin")
                     self.token = (result["access"] as? String ?? "")
+                    UserDefaults.standard.set(self.token, forKey: "token")
+                    
                 }else{
                     print("login error")
                 }
@@ -117,12 +120,15 @@ class Communication:ObservableObject{
                 return
             }
             if let response = response as? HTTPURLResponse {
-                if case 200...299 = response.statusCode{
+                if 200...299 ~= response.statusCode{
                     self.APIData = try! JSONDecoder().decode([apiData].self, from: data)
+                    print(self.APIData)
+                }else if response.statusCode == 401 {
+                    print("認証エラー")
+                    self.islogin = false
+                    UserDefaults.standard.set(self.islogin, forKey: "islogin")
                 }
             }
-            
-            print(self.APIData)
         }
         task.resume()
     }
