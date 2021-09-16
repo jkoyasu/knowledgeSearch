@@ -13,13 +13,13 @@ struct ContentView: View {
     
     var body: some View {
         if !communication.islogin {
-            Button(
+                Button(
                 action: {
                     communication.login()
                     print(communication.APIData)
                 }){
                 Text("ログイン")
-            }
+                }
         }else{
             NavigationView {
                 List{
@@ -34,21 +34,10 @@ struct ContentView: View {
                                 }
                             }){
                             Text("検索")
-                        }
+                            }
                     }
 //                    communication.APIData.enumerated().forEach( { (index,data) in
-                    ForEach(communication.APIData) { data in
-//                        let index = communication.APIData.firstIndex(of: data)
-                        VStack{
-                            NavigationLink(destination: DetailView(data: data)) {
-//                                Text(index)
-                                Text("災害種別:"+data.disaster_type)
-                                Text("業種:"+data.industry_large)
-                                Text("事故発生年月:"+data.accident_date)
-                                Text("事故分類:"+data.accident_type)
-                            }
-                        }
-                    }
+//                List{
                     if communication.APIData.count > 0{
                         HStack{
                             Spacer()
@@ -78,8 +67,36 @@ struct ContentView: View {
                             Spacer()
                         }
                     }
+                        ForEach(communication.APIData) { data in
+        //                        let index = communication.APIData.firstIndex(of: data)
+          
+                            NavigationLink(destination: DetailView(data: data)) {
+    //                                Text(index)
+                                    
+                                VStack{
+                                    Text("災害種別")
+                                   // Text(data.disaster_type!)
+                                    Text("業種:\(data.industry_large!)")
+                                    Text("災害状況：\(data.htclear_text![0])")
+                                    HStack{
+                                       // group{
+                                        if let accident_date = data.accident_date{
+                                            let startIndex = accident_date.index(accident_date.startIndex, offsetBy: 5)
+                                            let endIndex = accident_date.index(accident_date.startIndex,offsetBy: 6)
+                                            let revdate = accident_date.prefix(4)+"/"+accident_date[startIndex...endIndex]
+                                            Text(revdate + data.accident_type!)
+                                                .foregroundColor(Color.red)
+                                            Spacer()
+                                        }
+    //                                        Text("事故分類:\(data.accident_type!)")
+    //                                            .foregroundColor(Color.red)
+                                    }
+                                }
+                            }
+                        }
+                    //}
                 }
-                .navigationBarTitle(Text("検索"))
+                .navigationBarTitle(Text("ナレッジ検索"))
             }
         }
     }
