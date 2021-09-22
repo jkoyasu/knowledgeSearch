@@ -23,7 +23,7 @@ struct ContentView: View {
                 }
         }else{
             NavigationView {
-                    GeometryReader { geometry in
+                GeometryReader { geometry in
                     ZStack(alignment: .bottomTrailing){
                         List{
                             HStack{
