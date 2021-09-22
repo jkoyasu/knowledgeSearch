@@ -92,7 +92,7 @@ struct ContentView: View {
                 print(isShowMenu)
                 isShowMenu = true
               }){
-              Text("絞り込み")
+              Text("絞り込ddみ")
             }
             .padding()
             .accentColor(Color.white)
