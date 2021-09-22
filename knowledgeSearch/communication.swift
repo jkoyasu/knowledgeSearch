@@ -23,7 +23,8 @@ class Communication:ObservableObject{
       }
     
     @Published var APIData : [apiData] = []
-    @Published var islogin = UserDefaults.standard.bool(forKey: "islogin") ?? false
+    @Published var facets : [facets] = []
+    @Published var islogin = UserDefaults.standard.bool(forKey: "islogin") ?? true
     
     func login(){
         let url = baseURL + "qa_api/api/token/"
@@ -109,7 +110,6 @@ class Communication:ObservableObject{
         var req = URLRequest(url: urlComponents.url!)
         req.httpMethod = "GET"
         req.allHTTPHeaderFields = ["Authorization": "JWT " + token]
-        print("-------------------",start,req,cangoback)
         
         let task = URLSession.shared.dataTask(with: req) { (data, response, error) in
             guard let data = data else { return }
@@ -132,8 +132,37 @@ class Communication:ObservableObject{
         }
         task.resume()
     }
+    
+    func  get_facet(){
+        var urlComponents = URLComponents(string:(baseURL + "get_facet_fields/"))!
+        var date = ""
+        urlComponents.queryItems = [URLQueryItem(name: "qTxt", value: keyword.urlEncoded),URLQueryItem(name: "strDateSearch", value: date)]
+        var req = URLRequest(url: urlComponents.url!)
+        req.httpMethod = "GET"
+        req.allHTTPHeaderFields = ["Authorization": "JWT " + token]
+        let task = URLSession.shared.dataTask(with: req) { (data, response, error) in
+            guard let data = data else { return }
+            
+//            print(data)
+            if let error = error{
+                print(error.localizedDescription)
+                return
+            }
+            if let response = response as? HTTPURLResponse {
+                if 200...299 ~= response.statusCode{
+                    self.APIData = try! JSONDecoder().decode([apiData].self, from: data)
+                    print(self.APIData)
+                }else if response.statusCode == 401 {
+                    print("認証エラー")
+                    self.islogin = false
+                    UserDefaults.standard.set(self.islogin, forKey: "islogin")
+                }
+            }
+        }
+        task.resume()
+    }
 }
-
+    
 extension String {
     var urlEncoded: String {
         // 半角英数字 + "/?-._~" のキャラクタセットを定義

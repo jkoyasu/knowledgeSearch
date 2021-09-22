@@ -57,9 +57,17 @@ struct DetailView: View {
             if let industry_scale = data.industry_scale{
                 Text("事業場規模："+industry_scale)
             }
-
-//            if let htclear_text = data.htclear_text{
-//                Text("災害状況："+htclear_text[0])
+            
+            if let htclear_text = data.htclear_text{
+                if htclear_text != []{
+                    Text("災害状況："+htclear_text[0])
+                }
+            }
+            
+//            if let clear_text = data.clear_text{
+//                if clear_text != " "{
+//                    Text("："+clear_text)
+//                }
 //            }
 //
 //            if let machine_name = data.machine_name{
@@ -97,12 +105,7 @@ struct DetailView: View {
 //                        if let index = data.index{
 //                            Text("インデックス："+String(index))
 //                        }
-//            
-            //            if let clear_text = data.clear_text{
-            //                if clear_text != " "{
-            //                    Text("："+clear_text)
-            //                }
-            //            }
+            
             //            if let htaccident_type = data.htaccident_type{
             //                Text("原因："+htaccident_type)
             //            }

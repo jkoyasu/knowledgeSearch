@@ -11,7 +11,6 @@
 		A224F9C926D762A800847AFF /* data.swift in Sources */ = {isa = PBXBuildFile; fileRef = A224F9C826D762A800847AFF /* data.swift */; };
 		A23140A226D362200065EA6A /* communication.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23140A126D362200065EA6A /* communication.swift */; };
 		A25407B826CA0D98008739EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25407B726CA0D98008739EB /* AppDelegate.swift */; };
-		A25407BA26CA0D98008739EB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25407B926CA0D98008739EB /* SceneDelegate.swift */; };
 		A25407BC26CA0D98008739EB /* mainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25407BB26CA0D98008739EB /* mainView.swift */; };
 		A25407BE26CA0D9B008739EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A25407BD26CA0D9B008739EB /* Assets.xcassets */; };
 		A25407C126CA0D9B008739EB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A25407C026CA0D9B008739EB /* Preview Assets.xcassets */; };
@@ -19,6 +18,8 @@
 		A25407CE26CA0DC8008739EB /* AWSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A25407CD26CA0DC8008739EB /* AWSDK.xcframework */; };
 		A25407CF26CA0DC8008739EB /* AWSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A25407CD26CA0DC8008739EB /* AWSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A259844C26D7935100C82C96 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A259844B26D7935100C82C96 /* DetailView.swift */; };
+		A2862EF526FABAC000345940 /* facet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2862EF426FABAC000345940 /* facet.swift */; };
+		A2895EC326F9A5110077D827 /* sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2895EC226F9A5110077D827 /* sort.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,7 +44,6 @@
 		A23140A126D362200065EA6A /* communication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = communication.swift; sourceTree = "<group>"; };
 		A25407B426CA0D98008739EB /* knowledgeSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = knowledgeSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A25407B726CA0D98008739EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A25407B926CA0D98008739EB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A25407BB26CA0D98008739EB /* mainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainView.swift; sourceTree = "<group>"; };
 		A25407BD26CA0D9B008739EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A25407C026CA0D9B008739EB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -51,6 +51,8 @@
 		A25407C526CA0D9B008739EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A25407CD26CA0DC8008739EB /* AWSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AWSDK.xcframework; path = ../../../Downloads/AWSDK.xcframework; sourceTree = "<group>"; };
 		A259844B26D7935100C82C96 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		A2862EF426FABAC000345940 /* facet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = facet.swift; sourceTree = "<group>"; };
+		A2895EC226F9A5110077D827 /* sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sort.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,11 +99,12 @@
 			isa = PBXGroup;
 			children = (
 				A25407B726CA0D98008739EB /* AppDelegate.swift */,
-				A25407B926CA0D98008739EB /* SceneDelegate.swift */,
 				A25407BB26CA0D98008739EB /* mainView.swift */,
 				A259844B26D7935100C82C96 /* DetailView.swift */,
 				A23140A126D362200065EA6A /* communication.swift */,
+				A2895EC226F9A5110077D827 /* sort.swift */,
 				A224F9C826D762A800847AFF /* data.swift */,
+				A2862EF426FABAC000345940 /* facet.swift */,
 				A25407BD26CA0D9B008739EB /* Assets.xcassets */,
 				A25407C226CA0D9B008739EB /* LaunchScreen.storyboard */,
 				A25407C526CA0D9B008739EB /* Info.plist */,
@@ -244,8 +247,9 @@
 			files = (
 				A23140A226D362200065EA6A /* communication.swift in Sources */,
 				A259844C26D7935100C82C96 /* DetailView.swift in Sources */,
+				A2862EF526FABAC000345940 /* facet.swift in Sources */,
+				A2895EC326F9A5110077D827 /* sort.swift in Sources */,
 				A25407B826CA0D98008739EB /* AppDelegate.swift in Sources */,
-				A25407BA26CA0D98008739EB /* SceneDelegate.swift in Sources */,
 				A224F9C926D762A800847AFF /* data.swift in Sources */,
 				A25407BC26CA0D98008739EB /* mainView.swift in Sources */,
 			);
