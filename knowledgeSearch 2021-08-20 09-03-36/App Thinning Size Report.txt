@@ -1,0 +1,36 @@
+
+App Thinning Size Report for All Variants of knowledgeSearch
+
+Variant: knowledgeSearch-0819BFF0-212F-492B-B638-8A5164C06259.ipa
+Supported variant descriptors: [device: iPad8,2, os-version: 14.0], [device: iPad8,12, os-version: 14.0], [device: iPad7,2, os-version: 14.0], [device: iPad7,1, os-version: 14.0], [device: iPad6,3, os-version: 14.0], [device: iPad11,4, os-version: 14.0], [device: iPad8,4, os-version: 14.0], [device: iPad6,4, os-version: 14.0], [device: iPad11,1, os-version: 14.0], [device: iPad11,2, os-version: 14.0], [device: iPhone9,1, os-version: 14.0], [device: iPad8,1, os-version: 14.0], [device: iPhone10,4, os-version: 14.0], [device: iPad8,5, os-version: 14.0], [device: iPad8,8, os-version: 14.0], [device: iPad11,3, os-version: 14.0], [device: iPhone10,1, os-version: 14.0], [device: iPad8,7, os-version: 14.0], [device: iPad7,4, os-version: 14.0], [device: iPad13,2, os-version: 14.0], [device: iPad8,9, os-version: 14.0], [device: iPad8,3, os-version: 14.0], [device: iPad8,6, os-version: 14.0], [device: iPhone9,3, os-version: 14.0], [device: iPhone12,8, os-version: 14.0], [device: iPad13,1, os-version: 14.0], [device: iPad8,11, os-version: 14.0], [device: iPhone12,1, os-version: 14.0], [device: iPhone11,8, os-version: 14.0], [device: iPad8,10, os-version: 14.0], and [device: iPad7,3, os-version: 14.0]
+App + On Demand Resources size: 11 MB compressed, 28.9 MB uncompressed
+App size: 11 MB compressed, 28.9 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed
+
+
+Variant: knowledgeSearch-12BB4E7C-45E9-41C8-9DA4-CBA278C3AEF3.ipa
+Supported variant descriptors: [device: iPhone10,5, os-version: 14.0], [device: iPhone11,2, os-version: 14.0], [device: iPhone11,4, os-version: 14.0], [device: iPhone13,2, os-version: 14.0], [device: iPhone10,2, os-version: 14.0], [device: iPhone12,5, os-version: 14.0], [device: iPhone13,3, os-version: 14.0], [device: iPhone9,4, os-version: 14.0], [device: iPhone12,3, os-version: 14.0], [device: iPhone9,2, os-version: 14.0], [device: iPhone10,6, os-version: 14.0], [device: iPhone13,1, os-version: 14.0], [device: iPhone11,6, os-version: 14.0], [device: iPhone10,3, os-version: 14.0], and [device: iPhone13,4, os-version: 14.0]
+App + On Demand Resources size: 12.2 MB compressed, 30.1 MB uncompressed
+App size: 12.2 MB compressed, 30.1 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed
+
+
+Variant: knowledgeSearch-5DA309DF-2B75-4F33-A9B4-9A3F254817E8.ipa
+Supported variant descriptors: [device: iPad6,12, os-version: 14.0], [device: iPad5,2, os-version: 14.0], [device: iPad7,5, os-version: 14.0], [device: iPad11,6, os-version: 14.0], [device: iPhone8,1, os-version: 14.0], [device: iPad7,11, os-version: 14.0], [device: iPod9,1, os-version: 14.0], [device: iPad6,11, os-version: 14.0], [device: iPhone8,4, os-version: 14.0], [device: iPad7,6, os-version: 14.0], [device: iPad5,4, os-version: 14.0], [device: iPad7,12, os-version: 14.0], [device: iPad6,7, os-version: 14.0], [device: iPad11,7, os-version: 14.0], [device: iPad5,1, os-version: 14.0], [device: iPad6,8, os-version: 14.0], and [device: iPad5,3, os-version: 14.0]
+App + On Demand Resources size: 11 MB compressed, 28.9 MB uncompressed
+App size: 11 MB compressed, 28.9 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed
+
+
+Variant: knowledgeSearch-72B5905F-C033-4350-A085-82F4A216C212.ipa
+Supported variant descriptors: [device: iPhone8,2, os-version: 14.0]
+App + On Demand Resources size: 12.2 MB compressed, 30.1 MB uncompressed
+App size: 12.2 MB compressed, 30.1 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed
+
+
+Variant: knowledgeSearch.ipa
+Supported variant descriptors: Universal
+App + On Demand Resources size: 23.1 MB compressed, 41.3 MB uncompressed
+App size: 23.1 MB compressed, 41.3 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed
