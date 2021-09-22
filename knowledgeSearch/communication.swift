@@ -23,7 +23,7 @@ class Communication:ObservableObject{
       }
     
     @Published var APIData : [apiData] = []
-    @Published var facets : [facets] = []
+    @Published var facet : facets?
     @Published var islogin = UserDefaults.standard.bool(forKey: "islogin") ?? true
     
     func login(){
@@ -61,44 +61,6 @@ class Communication:ObservableObject{
                 }
             }
         }
-
-//        AF.upload(multipartFormData: { (multipartFormData) in
-//            multipartFormData.append(musername, withName: "username", mimeType: "text/plain")
-//            multipartFormData.append(mpassword, withName: "password", mimeType: "text/plain")
-//        }, to: url, method: .post, headers: headers).responseString {
-//        //⑤
-//        (response) in
-//            if let statusCode = response.response?.statusCode {
-//                print(statusCode,response.debugDescription)
-//                    //⑥
-//                    if case 200...299 = statusCode{
-//                        print("正常")
-//                    }
-//                    else
-//                    {
-//                        print("通信エラー")
-//                    }
-//              }
-//        }
-        
-//        var request = URLRequest(url: URL(string:url)!)
-//        let data = [ "username" : username , "password" : password]
-//        guard let httpBody = try? JSONSerialization.data(withJSONObject: data, options: []) else { return }
-//        request.httpMethod = "POST"
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.httpBody = httpBody
-
-//        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-//            guard let data = data else { return }
-//        do {
-//            let object = try JSONSerialization.jsonObject(with: data)
-//            print(object,"-------------",response,"dekita")
-//
-//        } catch let error{
-//            print(error,"dekitenai")}
-//        }
-//            task.resume()
-
     }
     
     
@@ -107,6 +69,36 @@ class Communication:ObservableObject{
         var urlComponents = URLComponents(string:(baseURL + "qa_api/get_qa_list/"))!
         var date = ""
         urlComponents.queryItems = [URLQueryItem(name: "qTxt", value: keyword.urlEncoded),URLQueryItem(name: "strDateSearch", value: date),URLQueryItem(name: "rows", value: rows),URLQueryItem(name: "start", value: String(start))]
+        var req = URLRequest(url: urlComponents.url!)
+        req.httpMethod = "GET"
+        req.allHTTPHeaderFields = ["Authorization": "JWT " + token]
+        
+        let task = URLSession.shared.dataTask(with: req) { (data, response, error) in
+            guard let data = data else { return }
+            
+//            print(data)
+            if let error = error{
+                print(error.localizedDescription)
+                return
+            }
+            if let response = response as? HTTPURLResponse {
+                if 200...299 ~= response.statusCode{
+                    self.APIData = try! JSONDecoder().decode([apiData].self, from: data)
+                    print(self.APIData)
+                }else if response.statusCode == 401 {
+                    print("認証エラー")
+                    self.islogin = false
+                    UserDefaults.standard.set(self.islogin, forKey: "islogin")
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    func searchfacet(facetname:String,facetvalue:String){
+        var urlComponents = URLComponents(string:(baseURL + "qa_api/get_qa_list/"))!
+        var date = ""
+        urlComponents.queryItems = [URLQueryItem(name: "qTxt", value: keyword.urlEncoded),URLQueryItem(name: "strDateSearch", value: date),URLQueryItem(name: "rows", value: rows),URLQueryItem(name: "start", value: String(start)),URLQueryItem(name: facetname, value: facetname+":"+facetvalue.urlEncoded)]
         var req = URLRequest(url: urlComponents.url!)
         req.httpMethod = "GET"
         req.allHTTPHeaderFields = ["Authorization": "JWT " + token]
@@ -150,8 +142,8 @@ class Communication:ObservableObject{
             }
             if let response = response as? HTTPURLResponse {
                 if 200...299 ~= response.statusCode{
-                    self.APIData = try! JSONDecoder().decode([apiData].self, from: data)
-                    print(self.APIData)
+                    self.facet = try! JSONDecoder().decode(facets.self, from: data)
+                    print(self.facet)
                 }else if response.statusCode == 401 {
                     print("認証エラー")
                     self.islogin = false

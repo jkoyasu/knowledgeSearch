@@ -1,5 +1,7 @@
 import  SwiftUI
 
+
+
 struct sortView: View {
     @Binding var isShowMenu: Bool
     var body: some View {
@@ -27,6 +29,7 @@ struct sortView: View {
 }
 
 struct MenuViewWithinSafeArea: View {
+    @ObservedObject var communication = Communication()
     @Binding var isShowMenu: Bool
     let bottomSafeAreaInsets: CGFloat
     var body: some View {
@@ -50,13 +53,29 @@ struct MenuViewWithinSafeArea: View {
                             })
                         }
                         ScrollView{
-                            ForEach(3..<40) { i in
+                            Text("メーカー")
+                            ForEach(communication.facet?.maker_facets ?? []) { facet in
                                 HStack{
                                     Button(
                                         action: {
-                                            print(i)
+                                            communication.get_facet()
+                                            communication.searchfacet(facetname: "makers_facets", facetvalue: facet.name)
+                                            print(facet)
                                         }){
-                                        Text(String(i))
+                                        Text(facet.name+"(\(facet.count))")
+                                    }
+                                    Spacer()
+                                }
+                            }
+                            Text("部品")
+                            ForEach(communication.facet?.manufaction_device_facets ?? []) { facet in
+                                HStack{
+                                    Button(
+                                        action: {
+                                            communication.get_facet()
+                                            communication.searchfacet(facetname: "manufaction_device_facets", facetvalue: facet.name)
+                                        }){
+                                        Text(facet.name+"(\(facet.count))")
                                     }
                                     Spacer()
                                 }

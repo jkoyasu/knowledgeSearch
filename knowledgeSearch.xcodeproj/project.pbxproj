@@ -19,7 +19,7 @@
 		A25407CF26CA0DC8008739EB /* AWSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A25407CD26CA0DC8008739EB /* AWSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A259844C26D7935100C82C96 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A259844B26D7935100C82C96 /* DetailView.swift */; };
 		A2862EF526FABAC000345940 /* facet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2862EF426FABAC000345940 /* facet.swift */; };
-		A2895EC326F9A5110077D827 /* sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2895EC226F9A5110077D827 /* sort.swift */; };
+		A2895EC326F9A5110077D827 /* sortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2895EC226F9A5110077D827 /* sortView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -52,7 +52,7 @@
 		A25407CD26CA0DC8008739EB /* AWSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AWSDK.xcframework; path = ../../../Downloads/AWSDK.xcframework; sourceTree = "<group>"; };
 		A259844B26D7935100C82C96 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		A2862EF426FABAC000345940 /* facet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = facet.swift; sourceTree = "<group>"; };
-		A2895EC226F9A5110077D827 /* sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sort.swift; sourceTree = "<group>"; };
+		A2895EC226F9A5110077D827 /* sortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sortView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +102,7 @@
 				A25407BB26CA0D98008739EB /* mainView.swift */,
 				A259844B26D7935100C82C96 /* DetailView.swift */,
 				A23140A126D362200065EA6A /* communication.swift */,
-				A2895EC226F9A5110077D827 /* sort.swift */,
+				A2895EC226F9A5110077D827 /* sortView.swift */,
 				A224F9C826D762A800847AFF /* data.swift */,
 				A2862EF426FABAC000345940 /* facet.swift */,
 				A25407BD26CA0D9B008739EB /* Assets.xcassets */,
@@ -248,7 +248,7 @@
 				A23140A226D362200065EA6A /* communication.swift in Sources */,
 				A259844C26D7935100C82C96 /* DetailView.swift in Sources */,
 				A2862EF526FABAC000345940 /* facet.swift in Sources */,
-				A2895EC326F9A5110077D827 /* sort.swift in Sources */,
+				A2895EC326F9A5110077D827 /* sortView.swift in Sources */,
 				A25407B826CA0D98008739EB /* AppDelegate.swift in Sources */,
 				A224F9C926D762A800847AFF /* data.swift in Sources */,
 				A25407BC26CA0D98008739EB /* mainView.swift in Sources */,

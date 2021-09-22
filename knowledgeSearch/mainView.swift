@@ -28,6 +28,7 @@ struct ContentView: View {
                   .textFieldStyle(RoundedBorderTextFieldStyle())
                 Button(
                   action: {
+                    communication.get_facet()
                     communication.search()
                     if communication.APIData.count > 0{
                       print(communication.APIData[0].accident_date,communication.APIData.count)
@@ -92,7 +93,7 @@ struct ContentView: View {
                 print(isShowMenu)
                 isShowMenu = true
               }){
-              Text("絞り込ddみ")
+              Text("絞り込み")
             }
             .padding()
             .accentColor(Color.white)
