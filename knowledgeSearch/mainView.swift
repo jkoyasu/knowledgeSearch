@@ -26,7 +26,7 @@ struct ContentView: View {
               HStack{
                 TextField("キーワード入力", text: $communication.keyword)
                   .textFieldStyle(RoundedBorderTextFieldStyle())
-                Button(
+                Button( 
                   action: {
                     communication.get_facet()
                     communication.search()
