@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
+    
     @ObservedObject var communication = Communication()
     @State var isShowMenu = false
     
