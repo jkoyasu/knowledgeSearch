@@ -71,6 +71,28 @@ struct ContentView: View {
   //                  Text("災害種別")
   //                  Text("業種:\(data.industry_large!)")
   //                  Text("災害状況：\(data.htclear_text![0])")
+                    
+                    HStack {
+                        Text("災害種別:\(data.disaster_type!)")
+                            .font(.headline)
+                        Spacer()
+                    }
+                    
+                    VStack{
+                        
+                        HStack{
+                            Text("災害状況:")
+                                .font(.headline)
+                            Spacer()
+                        }
+                        
+                        HStack{
+                            Text(data.htclear_text![0])
+                            Spacer()
+                        }
+                    }
+                    
+                    
                     HStack{
                       // group{
                       if let accident_date = data.accident_date{
@@ -78,21 +100,26 @@ struct ContentView: View {
                         let endIndex = accident_date.index(accident_date.startIndex,offsetBy: 6)
                         let revdate = accident_date.prefix(4)+"/"+accident_date[startIndex...endIndex]
                         Text(revdate + data.accident_type!)
-                          .foregroundColor(Color.red)
+                            .font(.headline)
+                            .foregroundColor(Color.red)
                         Spacer()
-                      }
-                    }
-                  }
-                }
-              }
-            }
+                      }// if文
+                    }//Hsack
+                    
+                    
+                  }//Vstack
+                    
+                }//Navigation Link
+              }//ForEach(communication.APIData)
+            }//List
+            
             //ボタン追加
             Button(
               action: {
                 print(isShowMenu)
                 isShowMenu = true
               }){
-              Text("絞り込ddみ")
+              Text("絞り込み")
             }
             .padding()
             .accentColor(Color.white)
@@ -100,11 +127,11 @@ struct ContentView: View {
             .cornerRadius(26)
             .shadow(color: Color.purple, radius: 15, x: 0, y: 5)
             .offset(x: -10, y: -10)
-            MenuViewWithinSafeArea(isShowMenu: $isShowMenu,bottomSafeAreaInsets: geometry.safeAreaInsets.bottom)
-              .ignoresSafeArea(edges: .bottom)
+//            MenuViewWithinSafeArea(isShowMenu: $isShowMenu,bottomSafeAreaInsets: geometry.safeAreaInsets.bottom)
+//              .ignoresSafeArea(edges: .bottom)
           }
         }
-        .navigationBarTitle(Text("ナレッジ検索"))
+        .navigationBarTitle(Text("ナレッジ検索"), displayMode: .inline)
       }
     }
   }
