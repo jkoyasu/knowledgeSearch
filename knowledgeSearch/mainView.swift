@@ -38,7 +38,8 @@ struct ContentView: View {
               }
               if communication.APIData.count > 0{
                 HStack{
-                  Spacer()
+                  //Spacer()
+                  
                   Button(
                     action: {
                       print("goback pushed")
@@ -50,7 +51,14 @@ struct ContentView: View {
                     communication.search()
                   }
                   .disabled(!communication.cangoback)
+                    
+                    
                   Spacer()
+                 var startRow: Int? = communication.start + 1
+                 var endRow: Int?  = communication.start + 20
+                  Text("\(startRow!)~\(endRow!)件目")
+                  Spacer()
+                    
                   Button(
                     action: {
                       print("goforward pushed")
@@ -62,9 +70,12 @@ struct ContentView: View {
                     communication.search()
                   }
                   .disabled(!communication.cangoforward)
-                  Spacer()
-                }
-              }
+                  //Spacer()
+                    
+                }//HStack
+                .padding()
+              }//「前へ」「次へ」の行
+                
               ForEach(communication.APIData) { data in
                 NavigationLink(destination: DetailView(data: data)) {
                   VStack{
@@ -111,7 +122,50 @@ struct ContentView: View {
                     
                 }//Navigation Link
               }//ForEach(communication.APIData)
+                
+                if communication.APIData.count > 0{
+                  HStack{
+                    //Spacer()
+                    
+                    Button(
+                      action: {
+                        print("goback pushed")
+                      }){
+                      Text("前へ")
+                        .foregroundColor(communication.cangoback ? Color.blue: Color(UIColor.lightGray))
+                    }.onTapGesture{
+                      communication.start -= 20
+                      communication.search()
+                    }
+                    .disabled(!communication.cangoback)
+                      
+                      
+                    Spacer()
+                   var startRow: Int? = communication.start + 1
+                   var endRow: Int?  = communication.start + 20
+                    Text("\(startRow!)~\(endRow!)件目")
+                    Spacer()
+                      
+                    Button(
+                      action: {
+                        print("goforward pushed")
+                      }){
+                      Text("次へ")
+                        .foregroundColor(communication.cangoforward ? Color.blue: Color(UIColor.lightGray))
+                    }.onTapGesture{
+                      communication.start += 20
+                      communication.search()
+                    }
+                    .disabled(!communication.cangoforward)
+                    //Spacer()
+                      
+                  }//HStack
+                  .padding()
+                }//「前へ」「次へ」の行(その２）
+                
             }//List
+            
+
             
             //ボタン追加
             Button(
