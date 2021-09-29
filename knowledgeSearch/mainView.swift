@@ -39,7 +39,8 @@ struct ContentView: View {
               }
               if communication.APIData.count > 0{
                 HStack{
-                  Spacer()
+                  //Spacer()
+                  
                   Button(
                     action: {
                       print("goback pushed")
@@ -51,7 +52,14 @@ struct ContentView: View {
                     communication.search()
                   }
                   .disabled(!communication.cangoback)
+                    
+                    
                   Spacer()
+                 var startRow: Int? = communication.start + 1
+                 var endRow: Int?  = communication.start + 20
+                  Text("\(startRow!)~\(endRow!)件目")
+                  Spacer()
+                    
                   Button(
                     action: {
                       print("goforward pushed")
@@ -63,15 +71,40 @@ struct ContentView: View {
                     communication.search()
                   }
                   .disabled(!communication.cangoforward)
-                  Spacer()
-                }
-              }
+                  //Spacer()
+                    
+                }//HStack
+                .padding()
+              }//「前へ」「次へ」の行
+                
               ForEach(communication.APIData) { data in
                 NavigationLink(destination: DetailView(data: data)) {
                   VStack{
   //                  Text("災害種別")
   //                  Text("業種:\(data.industry_large!)")
   //                  Text("災害状況：\(data.htclear_text![0])")
+                    
+                    HStack {
+                        Text("災害種別:\(data.disaster_type!)")
+                            .font(.headline)
+                        Spacer()
+                    }
+                    
+                    VStack{
+                        
+                        HStack{
+                            Text("災害状況:")
+                                .font(.headline)
+                            Spacer()
+                        }
+                        
+                        HStack{
+                            Text(data.htclear_text![0])
+                            Spacer()
+                        }
+                    }
+                    
+                    
                     HStack{
                       // group{
                       if let accident_date = data.accident_date{
@@ -79,14 +112,62 @@ struct ContentView: View {
                         let endIndex = accident_date.index(accident_date.startIndex,offsetBy: 6)
                         let revdate = accident_date.prefix(4)+"/"+accident_date[startIndex...endIndex]
                         Text(revdate + data.accident_type!)
-                          .foregroundColor(Color.red)
+                            .font(.headline)
+                            .foregroundColor(Color.red)
                         Spacer()
-                      }
+                      }// if文
+                    }//Hsack
+                    
+                    
+                  }//Vstack
+                    
+                }//Navigation Link
+              }//ForEach(communication.APIData)
+                
+                if communication.APIData.count > 0{
+                  HStack{
+                    //Spacer()
+                    
+                    Button(
+                      action: {
+                        print("goback pushed")
+                      }){
+                      Text("前へ")
+                        .foregroundColor(communication.cangoback ? Color.blue: Color(UIColor.lightGray))
+                    }.onTapGesture{
+                      communication.start -= 20
+                      communication.search()
                     }
-                  }
-                }
-              }
-            }
+                    .disabled(!communication.cangoback)
+                      
+                      
+                    Spacer()
+                   var startRow: Int? = communication.start + 1
+                   var endRow: Int?  = communication.start + 20
+                    Text("\(startRow!)~\(endRow!)件目")
+                    Spacer()
+                      
+                    Button(
+                      action: {
+                        print("goforward pushed")
+                      }){
+                      Text("次へ")
+                        .foregroundColor(communication.cangoforward ? Color.blue: Color(UIColor.lightGray))
+                    }.onTapGesture{
+                      communication.start += 20
+                      communication.search()
+                    }
+                    .disabled(!communication.cangoforward)
+                    //Spacer()
+                      
+                  }//HStack
+                  .padding()
+                }//「前へ」「次へ」の行(その２）
+                
+            }//List
+            
+
+            
             //ボタン追加
             Button(
               action: {
@@ -101,11 +182,11 @@ struct ContentView: View {
             .cornerRadius(26)
             .shadow(color: Color.purple, radius: 15, x: 0, y: 5)
             .offset(x: -10, y: -10)
-            MenuViewWithinSafeArea(isShowMenu: $isShowMenu,bottomSafeAreaInsets: geometry.safeAreaInsets.bottom)
-              .ignoresSafeArea(edges: .bottom)
+//            MenuViewWithinSafeArea(isShowMenu: $isShowMenu,bottomSafeAreaInsets: geometry.safeAreaInsets.bottom)
+//              .ignoresSafeArea(edges: .bottom)
           }
         }
-        .navigationBarTitle(Text("ナレッジ検索"))
+        .navigationBarTitle(Text("ナレッジ検索"), displayMode: .inline)
       }
     }
   }

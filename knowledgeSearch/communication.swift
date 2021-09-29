@@ -16,10 +16,12 @@ class Communication:ObservableObject{
     var start = 0
     var rows = "20"
     var cangoback: Bool {
-        return start > 0
+//        return start > 0
+        return true
       }
     var cangoforward: Bool {
-        return start < APIData[0].numFound ?? 0
+        return true
+//        return start < APIData[0].numFound ?? 0
       }
     
     @Published var APIData : [apiData] = []
