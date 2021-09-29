@@ -14,7 +14,6 @@ struct ContentView: View {
         Button(
         action: {
           communication.login()
-          print(communication.APIData)
         }){
         Text("ログイン")
         }
@@ -26,12 +25,11 @@ struct ContentView: View {
               HStack{
                 TextField("キーワード入力", text: $communication.keyword)
                   .textFieldStyle(RoundedBorderTextFieldStyle())
-                Button( 
+                Button(
                   action: {
                     communication.get_facet()
                     communication.search()
                     if communication.APIData.count > 0{
-                      print(communication.APIData[0].accident_date,communication.APIData.count)
                     }
                   }){
                   Text("検索")
@@ -169,21 +167,22 @@ struct ContentView: View {
 
             
             //ボタン追加
-            Button(
-              action: {
-                print(isShowMenu)
-                isShowMenu = true
-              }){
-              Text("絞り込み")
-            }
-            .padding()
-            .accentColor(Color.white)
-            .background(Color.blue)
-            .cornerRadius(26)
-            .shadow(color: Color.purple, radius: 15, x: 0, y: 5)
-            .offset(x: -10, y: -10)
-//            MenuViewWithinSafeArea(isShowMenu: $isShowMenu,bottomSafeAreaInsets: geometry.safeAreaInsets.bottom)
-//              .ignoresSafeArea(edges: .bottom)
+            if communication.facet != nil{
+                Button(
+                  action: {
+                    isShowMenu = true
+                  }){
+                  Text("絞り込み")
+                }
+                .padding()
+                .accentColor(Color.white)
+                .background(Color.blue)
+                .cornerRadius(26)
+                .shadow(color: Color.purple, radius: 15, x: 0, y: 5)
+                .offset(x: -10, y: -10)
+                MenuViewWithinSafeArea(isShowMenu: $isShowMenu,bottomSafeAreaInsets: geometry.safeAreaInsets.bottom)
+                  .ignoresSafeArea(edges: .bottom)
+              }
           }
         }
         .navigationBarTitle(Text("ナレッジ検索"), displayMode: .inline)
@@ -191,3 +190,9 @@ struct ContentView: View {
     }
   }
 }
+
+extension UIApplication {
+        func closeKeyboard() {
+            sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
+    }
