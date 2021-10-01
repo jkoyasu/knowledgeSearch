@@ -140,16 +140,16 @@ class Communication:ObservableObject{
                 print(error.localizedDescription)
                 return
             }
-            if let response = response as? HTTPURLResponse {
-                if 200...299 ~= response.statusCode{
-                    self.facet = try! JSONDecoder().decode(facets.self, from: data)
-                    print(self.facet)
-                }else if response.statusCode == 401 {
-                    print("認証エラー")
-                    self.islogin = false
-                    UserDefaults.standard.set(self.islogin, forKey: "islogin")
-                }
-            }
+//            if let response = response as? HTTPURLResponse {
+//                if 200...299 ~= response.statusCode{
+//                    self.facet = try! JSONDecoder().decode(facets.self, from: data)
+//                    print(self.facet)
+//                }else if response.statusCode == 401 {
+//                    print("認証エラー")
+//                    self.islogin = false
+//                    UserDefaults.standard.set(self.islogin, forKey: "islogin")
+//                }
+//            }
         }
         task.resume()
     }
