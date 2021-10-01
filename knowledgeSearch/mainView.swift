@@ -53,8 +53,8 @@ struct ContentView: View {
                                     }
                                     .disabled(!communication.cangoback)
                                     Spacer()
-                                    var startRow: Int? = communication.start + 1
-                                    var endRow: Int?  = communication.start + 20
+                                    let startRow: Int? = communication.start + 1
+                                    let endRow: Int?  = communication.start + 20
                                     Text("\(startRow!)~\(endRow!)件目")
                                     Spacer()
                 
@@ -134,8 +134,8 @@ struct ContentView: View {
                                 
                                 
                                     Spacer()
-                                    var startRow: Int? = communication.start + 1
-                                    var endRow: Int?  = communication.start + 20
+                                    let startRow: Int? = communication.start + 1
+                                    let endRow: Int? = communication.start + 20
                                     Text("\(startRow!)~\(endRow!)件目")
                                     Spacer()
                     
