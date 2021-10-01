@@ -54,12 +54,12 @@ struct MenuViewWithinSafeArea: View {
                         }
                         ScrollView{
                             Text("メーカー")
-                            ForEach(communication.facet?.maker_facets ?? []) { facet in
+                            ForEach(communication.facet?.industry_large_facets ?? []) { facet in
                                 HStack{
                                     Button(
                                         action: {
                                             communication.get_facet()
-                                            communication.searchfacet(facetname: "makers_facets", facetvalue: facet.name)
+                                            communication.searchfacet(facetname: "industry_large_facets", facetvalue: facet.name)
                                             print(facet)
                                         }){
                                         Text(facet.name+"(\(facet.count))")
@@ -68,12 +68,12 @@ struct MenuViewWithinSafeArea: View {
                                 }
                             }
                             Text("部品")
-                            ForEach(communication.facet?.manufaction_device_facets ?? []) { facet in
+                            ForEach(communication.facet?.industry_large_facets ?? []) { facet in
                                 HStack{
                                     Button(
                                         action: {
                                             communication.get_facet()
-                                            communication.searchfacet(facetname: "manufaction_device_facets", facetvalue: facet.name)
+                                            communication.searchfacet(facetname: "industry_large_facets", facetvalue: facet.name)
                                         }){
                                         Text(facet.name+"(\(facet.count))")
                                     }
