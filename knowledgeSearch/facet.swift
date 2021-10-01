@@ -8,12 +8,14 @@ import Foundation
 
 struct facets: Codable,Identifiable{
     let id:String?
-    let maker_facets:[facet]
-    let manufaction_device_facets:[facet]
+    let disaster_type_facets:[facet]
+    let industry_large_facets:[facet]
+    let industry_medium_facets:[facet]
+    let industry_small_facets:[facet]
 }
 
 struct facet: Codable,Identifiable,Equatable {
-    let id:String?
+    let id = UUID()
     let count:Int
     let name:String
 }

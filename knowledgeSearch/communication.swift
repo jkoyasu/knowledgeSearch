@@ -10,7 +10,7 @@ import Alamofire
 
 class Communication:ObservableObject{
     
-    let baseURL = "http://knowledge-search.intra.sharedom.net/"
+    let baseURL = "http://knowledge-search.intra.sharedom.net/qa_api/"
     var token = UserDefaults.standard.string(forKey: "token") ?? ""
     var keyword = ""
     var start = 0
@@ -66,7 +66,7 @@ class Communication:ObservableObject{
     
     
     func search(){
-        var urlComponents = URLComponents(string:(baseURL + "qa_api/get_qa_list/"))!
+        var urlComponents = URLComponents(string:(baseURL + "get_qa_list/"))!
         var date = ""
         urlComponents.queryItems = [URLQueryItem(name: "qTxt", value: keyword.urlEncoded),URLQueryItem(name: "strDateSearch", value: date),URLQueryItem(name: "rows", value: rows),URLQueryItem(name: "start", value: String(start))]
         var req = URLRequest(url: urlComponents.url!)
@@ -96,7 +96,7 @@ class Communication:ObservableObject{
     }
     
     func searchfacet(facetname:String,facetvalue:String){
-        var urlComponents = URLComponents(string:(baseURL + "qa_api/get_qa_list/"))!
+        var urlComponents = URLComponents(string:(baseURL + "get_qa_list/"))!
         var date = ""
         urlComponents.queryItems = [URLQueryItem(name: "qTxt", value: keyword.urlEncoded),URLQueryItem(name: "strDateSearch", value: date),URLQueryItem(name: "rows", value: rows),URLQueryItem(name: "start", value: String(start)),URLQueryItem(name: facetname, value: facetname+":"+facetvalue.urlEncoded)]
         var req = URLRequest(url: urlComponents.url!)
@@ -140,19 +140,20 @@ class Communication:ObservableObject{
                 print(error.localizedDescription)
                 return
             }
-//            if let response = response as? HTTPURLResponse {
-//                if 200...299 ~= response.statusCode{
-//                    self.facet = try! JSONDecoder().decode(facets.self, from: data)
-//                    print(self.facet)
-//                }else if response.statusCode == 401 {
-//                    print("認証エラー")
-//                    self.islogin = false
-//                    UserDefaults.standard.set(self.islogin, forKey: "islogin")
-//                }
-//            }
+            if let response = response as? HTTPURLResponse {
+                if 200...299 ~= response.statusCode{
+                    self.facet = try! JSONDecoder().decode(facets.self, from: data)
+                    print("-------------",self.facet)
+                }else if response.statusCode == 401 {
+                    print("認証エラー")
+                    self.islogin = false
+                    UserDefaults.standard.set(self.islogin, forKey: "islogin")
+                }
+            }
         }
         task.resume()
     }
+    
 }
     
 extension String {
