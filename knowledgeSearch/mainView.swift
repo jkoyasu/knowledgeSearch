@@ -7,7 +7,7 @@
 
 import SwiftUI
 struct ContentView: View {
-    @ObservedObject var communication = Communication()
+    @EnvironmentObject var communication:Communication
     @State var isShowMenu = false
     var body: some View {
         if !communication.islogin {
@@ -33,9 +33,6 @@ struct ContentView: View {
                                 }.onTapGesture{
                                     communication.get_facet()
                                     communication.search()
-                                    if communication.APIData.count > 0{
-                                        print(communication.APIData)
-                                    }
                                 }
                             }
                             if communication.APIData.count > 0{
@@ -160,7 +157,7 @@ struct ContentView: View {
                         if communication.facet != nil{
                             Button(
                                 action: {
-                                isShowMenu = true
+                                    isShowMenu = true
                             }){
                             Text("絞り込み")
                         }
@@ -174,11 +171,11 @@ struct ContentView: View {
                             .ignoresSafeArea(edges: .bottom)
                         }//facet有無
                     }//ZStack
+                    .onTapGesture {
+                        UIApplication.shared.closeKeyboard()
+                    }
                 }//GeometoryReader
                 .navigationBarTitle(Text("ナレッジ検索"), displayMode: .inline)
-                .onTapGesture {
-                    UIApplication.shared.closeKeyboard()
-                }
             }//NavigationView
         }//Loginのif
     }//body
