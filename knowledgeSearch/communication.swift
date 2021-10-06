@@ -5,12 +5,16 @@
 //  Created by koyasu on 2021/08/23.
 //
 
-import Foundation
 import Alamofire
+import SwiftUI
 
 class Communication:ObservableObject{
     
-    let baseURL = "http://knowledge-search.intra.sharedom.net/qa_api/"
+//    let baseURL = "http://knowledge-search.intra.sharedom.net/qa_api/"
+    var component = URLComponents()
+    let scheme = "http"
+    let host = "172.20.10.9"
+    let port = 8000
     var token = UserDefaults.standard.string(forKey: "token") ?? ""
     var keyword = ""
     var start = 0
@@ -27,7 +31,13 @@ class Communication:ObservableObject{
     @Published var islogin = UserDefaults.standard.bool(forKey: "islogin") ?? true
     
     func login(){
-        let url = baseURL + "qa_api/api/token/"
+        component.scheme = scheme
+        component.host = host
+        component.port = port
+        component.path = "/api/token/"
+        guard let url = component.url else {
+            return
+        }
 //        let musername = "admin".data(using: .utf8)!
 //        let mpassword = "mcsy1234".data(using: .utf8)!
         let username = "admin"
@@ -55,7 +65,7 @@ class Communication:ObservableObject{
                     UserDefaults.standard.set(self.islogin, forKey: "islogin")
                     self.token = (result["access"] as? String ?? "")
                     UserDefaults.standard.set(self.token, forKey: "token")
-                    
+                    print(self.token)
                 }else{
                     print("login error")
                 }
@@ -66,10 +76,13 @@ class Communication:ObservableObject{
     
     
     func search(){
-        var urlComponents = URLComponents(string:(baseURL + "get_qa_list/"))!
+        component.scheme = scheme
+        component.host = host
+        component.port = port
+        component.path = "/get_qa_list/"
         var date = ""
-        urlComponents.queryItems = [URLQueryItem(name: "qTxt", value: keyword.urlEncoded),URLQueryItem(name: "strDateSearch", value: date),URLQueryItem(name: "rows", value: rows),URLQueryItem(name: "start", value: String(start))]
-        var req = URLRequest(url: urlComponents.url!)
+        component.queryItems = [URLQueryItem(name: "qTxt", value: keyword.urlEncoded),URLQueryItem(name: "strDateSearch", value: date),URLQueryItem(name: "rows", value: rows),URLQueryItem(name: "start", value: String(start))]
+        var req = URLRequest(url: component.url!)
         req.httpMethod = "GET"
         req.allHTTPHeaderFields = ["Authorization": "JWT " + token]
         
@@ -83,8 +96,9 @@ class Communication:ObservableObject{
             }
             if let response = response as? HTTPURLResponse {
                 if 200...299 ~= response.statusCode{
+                    DispatchQueue.main.async {
                     self.APIData = try! JSONDecoder().decode([apiData].self, from: data)
-                    print(self.APIData)
+                    }
                 }else if response.statusCode == 401 {
                     print("認証エラー")
                     self.islogin = false
@@ -96,10 +110,14 @@ class Communication:ObservableObject{
     }
     
     func searchfacet(facetname:String,facetvalue:String){
-        var urlComponents = URLComponents(string:(baseURL + "get_qa_list/"))!
+        component.scheme = scheme
+        component.host = host
+        component.port = port
+        component.path = "/get_qa_list/"
         var date = ""
-        urlComponents.queryItems = [URLQueryItem(name: "qTxt", value: keyword.urlEncoded),URLQueryItem(name: "strDateSearch", value: date),URLQueryItem(name: "rows", value: rows),URLQueryItem(name: "start", value: String(start)),URLQueryItem(name: facetname, value: facetname+":"+facetvalue.urlEncoded)]
-        var req = URLRequest(url: urlComponents.url!)
+        component.queryItems = [URLQueryItem(name: "qTxt", value: keyword.urlEncoded),URLQueryItem(name: "strDateSearch", value: date),URLQueryItem(name: "rows", value: rows),URLQueryItem(name: "start", value: String(start)),URLQueryItem(name: facetname.urlEncoded, value: facetname+":"+facetvalue.urlEncoded)]
+        var req = URLRequest(url: component.url!)
+        req = URLRequest(url: URL(string: "http://172.20.10.9/qa_api/get_qa_list/?qTxt=%25E5%2587%258D%25E7%25B5%2590&strDateSearch=&industry_large_facets=industry_large_facets:%E5%95%86%E6%A5%AD&start=0&rows=20&action_id=3")!)
         req.httpMethod = "GET"
         req.allHTTPHeaderFields = ["Authorization": "JWT " + token]
         
@@ -113,8 +131,10 @@ class Communication:ObservableObject{
             }
             if let response = response as? HTTPURLResponse {
                 if 200...299 ~= response.statusCode{
-                    self.APIData = try! JSONDecoder().decode([apiData].self, from: data)
-                    print(self.APIData)
+                    DispatchQueue.main.async {
+                        self.APIData = try! JSONDecoder().decode([apiData].self, from: data)
+                    }
+                    print(self.facet?.industry_medium_facets.count)
                 }else if response.statusCode == 401 {
                     print("認証エラー")
                     self.islogin = false
@@ -126,10 +146,13 @@ class Communication:ObservableObject{
     }
     
     func  get_facet(){
-        var urlComponents = URLComponents(string:(baseURL + "get_facet_fields/"))!
+        component.scheme = scheme
+        component.host = host
+        component.port = port
+        component.path = "/get_facet_fields/"
         var date = ""
-        urlComponents.queryItems = [URLQueryItem(name: "qTxt", value: keyword.urlEncoded),URLQueryItem(name: "strDateSearch", value: date)]
-        var req = URLRequest(url: urlComponents.url!)
+        component.queryItems = [URLQueryItem(name: "qTxt", value: keyword.urlEncoded),URLQueryItem(name: "strDateSearch", value: date)]
+        var req = URLRequest(url: component.url!)
         req.httpMethod = "GET"
         req.allHTTPHeaderFields = ["Authorization": "JWT " + token]
         let task = URLSession.shared.dataTask(with: req) { (data, response, error) in
@@ -142,8 +165,12 @@ class Communication:ObservableObject{
             }
             if let response = response as? HTTPURLResponse {
                 if 200...299 ~= response.statusCode{
-                    self.facet = try! JSONDecoder().decode(facets.self, from: data)
-                    print("-------------",self.facet)
+                    DispatchQueue.main.async {
+                        self.facet = try! JSONDecoder().decode(facets.self, from: data)
+                    }
+                    if self.APIData.count > 0{
+                        print(self.facet?.industry_medium_facets.count)
+                    }
                 }else if response.statusCode == 401 {
                     print("認証エラー")
                     self.islogin = false

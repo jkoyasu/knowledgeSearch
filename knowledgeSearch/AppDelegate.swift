@@ -108,6 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AWControllerDelegate, UNU
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         let contentView = ContentView()
+            .environmentObject(Communication())
         let window = UIWindow()
         window.rootViewController = UIHostingController(rootView: contentView)
         self.window = window
@@ -124,20 +125,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AWControllerDelegate, UNU
 //        // デバッグ出力
 //        NSLog("AWController.clientInstance(): controller.account?.username: \(awcontroller.account?.username as Optional)")
         //NSLog("AWController.clientInstance(): controller.account?.password: \(controller.account?.password as Optional)")
-        
-        awcontroller.callbackScheme = "knowledgeSearch"
-        awcontroller.delegate = self
-        awcontroller.start()
+//        
+//        awcontroller.callbackScheme = "knowledgeSearch"
+//        awcontroller.delegate = self
+//        awcontroller.start()
         
         return true
     }
 
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        let handedBySDKController = AWController.clientInstance().handleOpenURL(url, fromApplication: sourceApplication)
-        if handedBySDKController  {
-            AWLogInfo("Handed over open URL to AWController")
-            return true
-        }
+//        let handedBySDKController = AWController.clientInstance().handleOpenURL(url, fromApplication: sourceApplication)
+//        if handedBySDKController  {
+//            AWLogInfo("Handed over open URL to AWController")
+//            return true
+//        }
         return false
     }
     

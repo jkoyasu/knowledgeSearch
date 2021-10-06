@@ -6,8 +6,7 @@
 //
 import Foundation
 
-struct facets: Codable,Identifiable{
-    let id:String?
+struct facets: Codable{
     let disaster_type_facets:[facet]
     let industry_large_facets:[facet]
     let industry_medium_facets:[facet]

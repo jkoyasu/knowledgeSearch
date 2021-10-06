@@ -1,7 +1,5 @@
 import  SwiftUI
 
-
-
 struct sortView: View {
     @Binding var isShowMenu: Bool
     var body: some View {
@@ -29,7 +27,7 @@ struct sortView: View {
 }
 
 struct MenuViewWithinSafeArea: View {
-    @ObservedObject var communication = Communication()
+    @EnvironmentObject var communication:Communication
     @Binding var isShowMenu: Bool
     let bottomSafeAreaInsets: CGFloat
     var body: some View {
@@ -53,32 +51,38 @@ struct MenuViewWithinSafeArea: View {
                             })
                         }
                         ScrollView{
-                            Text("メーカー")
-                            ForEach(communication.facet?.industry_large_facets ?? []) { facet in
-                                HStack{
+                            if let facet = communication.facet{
+                                ForEach(facet.industry_large_facets ?? []) { facet in
+                                    HStack{
+                                        Button(
+                                            action: {
+                                                communication.get_facet()
+                                                communication.searchfacet(facetname: "industry_large_facets", facetvalue: facet.name)
+                                            }){
+                                            Text(facet.name+"(\(facet.count))")
+                                        }
+                                        Spacer()
+                                    }
+                                }
+                                Text("部品")
+                                ForEach(facet.industry_medium_facets ?? []) { facet in
+                                    HStack{
+                                        Button(
+                                            action: {
+                                                communication.get_facet()
+                                                communication.searchfacet(facetname: "industry_medium_facets", facetvalue: facet.name)
+                                            }){
+                                            Text(facet.name+"(\(facet.count))")
+                                        }
+                                        Spacer()
+                                    }
+                                }
+                                }else{
                                     Button(
                                         action: {
-                                            communication.get_facet()
-                                            communication.searchfacet(facetname: "industry_large_facets", facetvalue: facet.name)
-                                            print(facet)
                                         }){
-                                        Text(facet.name+"(\(facet.count))")
+                                        Text("on")
                                     }
-                                    Spacer()
-                                }
-                            }
-                            Text("部品")
-                            ForEach(communication.facet?.industry_large_facets ?? []) { facet in
-                                HStack{
-                                    Button(
-                                        action: {
-                                            communication.get_facet()
-                                            communication.searchfacet(facetname: "industry_large_facets", facetvalue: facet.name)
-                                        }){
-                                        Text(facet.name+"(\(facet.count))")
-                                    }
-                                    Spacer()
-                                }
                             }
                         }
                     }
