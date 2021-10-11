@@ -23,20 +23,20 @@ struct ContentView: View {
                     ZStack(alignment: .bottomTrailing){
                         VStack{
                             List{
-                                HStack{
-                                    TextField("キーワード入力", text: $communication.keyword)
-                                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    Button(
-                                        action: {
-                                            print("buttonpushed")
-                                        }){
-                                        Text("検索")
-                                    }.onTapGesture{
-                                        communication.start = 0
-                                        communication.get_facet()
-                                        communication.search()
-                                    }
-                                }
+                              HStack{
+                                  TextField("キーワード入力", text: $communication.keyword)
+                                      .textFieldStyle(RoundedBorderTextFieldStyle())
+                                  Button(
+                                      action: {
+                                          print("buttonpushed")
+                                      }){
+                                      Text("検索")
+                                  }.onTapGesture{
+                                      communication.start = 0
+                                      communication.get_facet(facetlarge:communication.selectedlarge,facetmed:communication.selectedmed)
+                                      communication.search()
+                                  }
+                               }
                             }.listStyle(PlainListStyle())
                             .frame(height:50)
                             

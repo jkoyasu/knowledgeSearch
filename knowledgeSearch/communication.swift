@@ -29,6 +29,8 @@ class Communication:ObservableObject{
     @Published var APIData : [apiData] = []
     @Published var facet : facets?
     @Published var islogin = UserDefaults.standard.bool(forKey: "islogin") ?? true
+    @Published var selectedlarge : [String] = []
+    @Published var selectedmed : [String] = []
     
     func login(){
         component.scheme = scheme
@@ -76,6 +78,8 @@ class Communication:ObservableObject{
     
     
     func search(){
+        selectedlarge = []
+        selectedmed = []
         component.scheme = scheme
         component.host = host
         component.port = port
@@ -109,22 +113,27 @@ class Communication:ObservableObject{
         task.resume()
     }
     
-    func searchfacet(facetname:String,facetvalue:String){
+    func searchfacet(facetlarge:[String],facetmed:[String]){
         component.scheme = scheme
         component.host = host
         component.port = port
         component.path = "/get_qa_list/"
         var date = ""
-        component.queryItems = [URLQueryItem(name: "qTxt", value: keyword.urlEncoded),URLQueryItem(name: "strDateSearch", value: date),URLQueryItem(name: "rows", value: rows),URLQueryItem(name: "start", value: String(start)),URLQueryItem(name: facetname.urlEncoded, value: facetname+":"+facetvalue.urlEncoded)]
+        component.queryItems = [URLQueryItem(name: "qTxt", value: keyword.urlEncoded),URLQueryItem(name: "strDateSearch", value: date),URLQueryItem(name: "rows", value: rows),URLQueryItem(name: "start", value: String(start))]
+        for i in facetlarge{
+            component.queryItems?.append(URLQueryItem(name: "industry_large_facets", value: "industry_large_facets:"+i))
+        }
+        for i in facetmed{
+            component.queryItems?.append(URLQueryItem(name: "industry_medium_facets", value: "industry_medium_facets:"+i))
+        }
         var req = URLRequest(url: component.url!)
-        req = URLRequest(url: URL(string: "http://172.20.10.9/qa_api/get_qa_list/?qTxt=%25E5%2587%258D%25E7%25B5%2590&strDateSearch=&industry_large_facets=industry_large_facets:%E5%95%86%E6%A5%AD&start=0&rows=20&action_id=3")!)
+        print(component.url)
         req.httpMethod = "GET"
         req.allHTTPHeaderFields = ["Authorization": "JWT " + token]
         
         let task = URLSession.shared.dataTask(with: req) { (data, response, error) in
             guard let data = data else { return }
             
-//            print(data)
             if let error = error{
                 print(error.localizedDescription)
                 return
@@ -134,7 +143,6 @@ class Communication:ObservableObject{
                     DispatchQueue.main.async {
                         self.APIData = try! JSONDecoder().decode([apiData].self, from: data)
                     }
-                    print(self.facet?.industry_medium_facets.count)
                 }else if response.statusCode == 401 {
                     print("認証エラー")
                     self.islogin = false
@@ -145,13 +153,19 @@ class Communication:ObservableObject{
         task.resume()
     }
     
-    func  get_facet(){
+    func  get_facet(facetlarge:[String],facetmed:[String]){
         component.scheme = scheme
         component.host = host
         component.port = port
         component.path = "/get_facet_fields/"
         var date = ""
         component.queryItems = [URLQueryItem(name: "qTxt", value: keyword.urlEncoded),URLQueryItem(name: "strDateSearch", value: date)]
+        for i in facetlarge{
+            component.queryItems?.append(URLQueryItem(name: "industry_large_facets", value: "industry_large_facets:"+i))
+        }
+        for i in facetmed{
+            component.queryItems?.append(URLQueryItem(name: "industry_medium_facets", value: "industry_medium_facets:"+i))
+        }
         var req = URLRequest(url: component.url!)
         req.httpMethod = "GET"
         req.allHTTPHeaderFields = ["Authorization": "JWT " + token]
@@ -167,9 +181,9 @@ class Communication:ObservableObject{
                 if 200...299 ~= response.statusCode{
                     DispatchQueue.main.async {
                         self.facet = try! JSONDecoder().decode(facets.self, from: data)
-                    }
-                    if self.APIData.count > 0{
-                        print(self.facet?.industry_medium_facets.count)
+                        if self.APIData.count > 0{
+                            print("ファセット数は",self.facet?.industry_medium_facets.count)
+                        }
                     }
                 }else if response.statusCode == 401 {
                     print("認証エラー")
