@@ -51,26 +51,31 @@ struct MenuViewWithinSafeArea: View {
                             })
                         }
                         ScrollView{
-                            if let facet = communication.facet{
+                            if var facet = communication.facet{
+                                Text("業種（大分類）")
                                 ForEach(facet.industry_large_facets ?? []) { facet in
                                     HStack{
                                         Button(
                                             action: {
-                                                communication.get_facet()
-                                                communication.searchfacet(facetname: "industry_large_facets", facetvalue: facet.name)
+                                                communication.start = 0
+                                                communication.selectedlarge.append(facet.name)
+                                                communication.get_facet(facetlarge:communication.selectedlarge,facetmed:communication.selectedmed)
+                                                communication.searchfacet(facetlarge:communication.selectedlarge,facetmed:communication.selectedmed)
                                             }){
                                             Text(facet.name+"(\(facet.count))")
                                         }
                                         Spacer()
                                     }
                                 }
-                                Text("部品")
+                                Text("業種（中分類）")
                                 ForEach(facet.industry_medium_facets ?? []) { facet in
                                     HStack{
                                         Button(
                                             action: {
-                                                communication.get_facet()
-                                                communication.searchfacet(facetname: "industry_medium_facets", facetvalue: facet.name)
+                                                communication.start = 0
+                                                communication.selectedmed.append(facet.name)
+                                                communication.get_facet(facetlarge:communication.selectedlarge,facetmed:communication.selectedmed)
+                                                communication.searchfacet(facetlarge:communication.selectedlarge,facetmed:communication.selectedmed)
                                             }){
                                             Text(facet.name+"(\(facet.count))")
                                         }

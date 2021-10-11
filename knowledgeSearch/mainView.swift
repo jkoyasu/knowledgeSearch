@@ -31,7 +31,8 @@ struct ContentView: View {
                                     }){
                                     Text("検索")
                                 }.onTapGesture{
-                                    communication.get_facet()
+                                    communication.start = 0
+                                    communication.get_facet(facetlarge:communication.selectedlarge,facetmed:communication.selectedmed)
                                     communication.search()
                                 }
                             }
