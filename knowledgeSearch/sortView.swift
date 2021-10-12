@@ -52,42 +52,76 @@ struct MenuViewWithinSafeArea: View {
                         }
                         ScrollView{
                             if var facet = communication.facet{
-                                Text("業種（大分類）")
+                                Text("災害種別")
+                                ForEach(facet.disaster_type_facets ?? []) { facet in
+                                    HStack{
+                                        Button(
+                                            action: {
+                                                communication.start = 0
+                                                communication.selectedtype.append(facet.name)
+                                                communication.get_facet(facettype:communication.selectedtype,facetlarge:communication.selectedlarge,facetmed:communication.selectedmed,facetsmall:communication.selectedsmall)
+                                                communication.searchfacet(facettype:communication.selectedtype,facetlarge:communication.selectedlarge,facetmed:communication.selectedmed,facetsmall:communication.selectedsmall)
+                                            }){
+                                            Text(facet.name+"(\(facet.count))")
+                                                .foregroundColor(communication.selectedtype.contains(facet.name) ? .red : .white)
+                                        }
+                                        Spacer()
+                                    }
+                                }
+                                Text("業種(大分類)")
                                 ForEach(facet.industry_large_facets ?? []) { facet in
                                     HStack{
                                         Button(
                                             action: {
                                                 communication.start = 0
                                                 communication.selectedlarge.append(facet.name)
-                                                communication.get_facet(facetlarge:communication.selectedlarge,facetmed:communication.selectedmed)
-                                                communication.searchfacet(facetlarge:communication.selectedlarge,facetmed:communication.selectedmed)
+                                                communication.get_facet(facettype:communication.selectedtype,facetlarge:communication.selectedlarge,facetmed:communication.selectedmed,facetsmall:communication.selectedsmall)
+                                                communication.searchfacet(facettype:communication.selectedtype,facetlarge:communication.selectedlarge,facetmed:communication.selectedmed,facetsmall:communication.selectedsmall)
                                             }){
                                             Text(facet.name+"(\(facet.count))")
+                                                .foregroundColor(communication.selectedlarge.contains(facet.name) ? .red : .white)
                                         }
                                         Spacer()
                                     }
                                 }
-                                Text("業種（中分類）")
+                                Text("業種(中分類)")
                                 ForEach(facet.industry_medium_facets ?? []) { facet in
                                     HStack{
                                         Button(
                                             action: {
                                                 communication.start = 0
                                                 communication.selectedmed.append(facet.name)
-                                                communication.get_facet(facetlarge:communication.selectedlarge,facetmed:communication.selectedmed)
-                                                communication.searchfacet(facetlarge:communication.selectedlarge,facetmed:communication.selectedmed)
+                                                communication.get_facet(facettype:communication.selectedtype,facetlarge:communication.selectedlarge,facetmed:communication.selectedmed,facetsmall:communication.selectedsmall)
+                                                communication.searchfacet(facettype:communication.selectedtype,facetlarge:communication.selectedlarge,facetmed:communication.selectedmed,facetsmall:communication.selectedsmall)
                                             }){
                                             Text(facet.name+"(\(facet.count))")
+                                                .foregroundColor(communication.selectedmed.contains(facet.name) ? .red : .white)
                                         }
                                         Spacer()
                                     }
                                 }
-                                }else{
-                                    Button(
-                                        action: {
-                                        }){
-                                        Text("on")
+                                Text("業種(小分類)")
+                                ForEach(facet.industry_small_facets ?? []) { facet in
+                                    HStack{
+                                        Button(
+                                            action: {
+                                                communication.start = 0
+                                                communication.selectedsmall.append(facet.name)
+                                                communication.get_facet(facettype:communication.selectedtype,facetlarge:communication.selectedlarge,facetmed:communication.selectedmed,facetsmall:communication.selectedsmall)
+                                                communication.searchfacet(facettype:communication.selectedtype,facetlarge:communication.selectedlarge,facetmed:communication.selectedmed,facetsmall:communication.selectedsmall)
+                                            }){
+                                            Text(facet.name+"(\(facet.count))")
+                                                .foregroundColor(communication.selectedsmall.contains(facet.name) ? .red : .white)
+                                        }
+                                        Spacer()
                                     }
+                                }
+                                    }else{
+                                        Button(
+                                            action: {
+                                        }){
+                                    Text("on")
+                                }
                             }
                         }
                     }
