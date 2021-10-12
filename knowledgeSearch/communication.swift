@@ -29,8 +29,10 @@ class Communication:ObservableObject{
     @Published var APIData : [apiData] = []
     @Published var facet : facets?
     @Published var islogin = UserDefaults.standard.bool(forKey: "islogin") ?? true
+    @Published var selectedtype : [String] = []
     @Published var selectedlarge : [String] = []
     @Published var selectedmed : [String] = []
+    @Published var selectedsmall : [String] = []
     
     func login(){
         component.scheme = scheme
@@ -78,8 +80,10 @@ class Communication:ObservableObject{
     
     
     func search(){
+        selectedtype = []
         selectedlarge = []
         selectedmed = []
+        selectedsmall = []
         component.scheme = scheme
         component.host = host
         component.port = port
@@ -113,18 +117,24 @@ class Communication:ObservableObject{
         task.resume()
     }
     
-    func searchfacet(facetlarge:[String],facetmed:[String]){
+    func searchfacet(facettype:[String],facetlarge:[String],facetmed:[String],facetsmall:[String]){
         component.scheme = scheme
         component.host = host
         component.port = port
         component.path = "/get_qa_list/"
         var date = ""
         component.queryItems = [URLQueryItem(name: "qTxt", value: keyword.urlEncoded),URLQueryItem(name: "strDateSearch", value: date),URLQueryItem(name: "rows", value: rows),URLQueryItem(name: "start", value: String(start))]
+        for i in facettype{
+            component.queryItems?.append(URLQueryItem(name: "disaster_type_facets", value: "disaster_type_facets:"+i))
+        }
         for i in facetlarge{
             component.queryItems?.append(URLQueryItem(name: "industry_large_facets", value: "industry_large_facets:"+i))
         }
         for i in facetmed{
             component.queryItems?.append(URLQueryItem(name: "industry_medium_facets", value: "industry_medium_facets:"+i))
+        }
+        for i in facetsmall{
+            component.queryItems?.append(URLQueryItem(name: "industry_small_facets", value: "industry_small_facets:"+i))
         }
         var req = URLRequest(url: component.url!)
         print(component.url)
@@ -153,7 +163,7 @@ class Communication:ObservableObject{
         task.resume()
     }
     
-    func  get_facet(facetlarge:[String],facetmed:[String]){
+    func  get_facet(facettype:[String],facetlarge:[String],facetmed:[String],facetsmall:[String]){
         component.scheme = scheme
         component.host = host
         component.port = port
@@ -182,7 +192,7 @@ class Communication:ObservableObject{
                     DispatchQueue.main.async {
                         self.facet = try! JSONDecoder().decode(facets.self, from: data)
                         if self.APIData.count > 0{
-                            print("ファセット数は",self.facet?.industry_medium_facets.count)
+                            print("ファセット数は",self.facet)
                         }
                     }
                 }else if response.statusCode == 401 {
