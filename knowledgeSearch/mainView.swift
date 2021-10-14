@@ -33,8 +33,8 @@ struct ContentView: View {
                                       Text("検索")
                                   }.onTapGesture{
                                       communication.start = 0
-                                    communication.searchfacet(facettype:communication.selectedtype,facetlarge:communication.selectedlarge,facetmed:communication.selectedmed,facetsmall:communication.selectedsmall)
-                                      communication.search()
+                                    communication.search()
+                                    communication.get_facet(facettype:communication.selectedtype,facetlarge:communication.selectedlarge,facetmed:communication.selectedmed,facetsmall:communication.selectedsmall)
                                   }
                                }
                             }.listStyle(PlainListStyle())
