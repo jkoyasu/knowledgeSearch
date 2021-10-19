@@ -13,7 +13,7 @@ class Communication:ObservableObject{
 //    let baseURL = "http://knowledge-search.intra.sharedom.net/qa_api/"
     var component = URLComponents()
     let scheme = "http"
-    let host = "172.20.10.9"
+    let host = "192.168.2.108"
     let port = 8000
     var token = UserDefaults.standard.string(forKey: "token") ?? ""
     var keyword = ""
@@ -137,7 +137,7 @@ class Communication:ObservableObject{
             component.queryItems?.append(URLQueryItem(name: "industry_small_facets", value: "industry_small_facets:"+i))
         }
         var req = URLRequest(url: component.url!)
-        print(component.url)
+        print("aiueo\(component.url)")
         req.httpMethod = "GET"
         req.allHTTPHeaderFields = ["Authorization": "JWT " + token]
         
