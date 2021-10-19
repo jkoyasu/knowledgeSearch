@@ -13,7 +13,7 @@ class Communication:ObservableObject{
 //    let baseURL = "http://knowledge-search.intra.sharedom.net/qa_api/"
     var component = URLComponents()
     let scheme = "http"
-    let host = "172.20.10.9"
+    let host = "192.168.2.108"
     let port = 8000
     var token = UserDefaults.standard.string(forKey: "token") ?? ""
     var keyword = ""
@@ -137,7 +137,7 @@ class Communication:ObservableObject{
             component.queryItems?.append(URLQueryItem(name: "industry_small_facets", value: "industry_small_facets:"+i))
         }
         var req = URLRequest(url: component.url!)
-        print(component.url)
+        print("aiueo\(component.url)")
         req.httpMethod = "GET"
         req.allHTTPHeaderFields = ["Authorization": "JWT " + token]
         
@@ -163,18 +163,24 @@ class Communication:ObservableObject{
         task.resume()
     }
     
-    func  get_facet(facettype:[String],facetlarge:[String],facetmed:[String],facetsmall:[String]){
+    func get_facet(facettype:[String],facetlarge:[String],facetmed:[String],facetsmall:[String]){
         component.scheme = scheme
         component.host = host
         component.port = port
         component.path = "/get_facet_fields/"
         var date = ""
         component.queryItems = [URLQueryItem(name: "qTxt", value: keyword.urlEncoded),URLQueryItem(name: "strDateSearch", value: date)]
+        for i in facettype{
+            component.queryItems?.append(URLQueryItem(name: "disaster_type_facets", value: "disaster_type_facets:"+i))
+        }
         for i in facetlarge{
             component.queryItems?.append(URLQueryItem(name: "industry_large_facets", value: "industry_large_facets:"+i))
         }
         for i in facetmed{
             component.queryItems?.append(URLQueryItem(name: "industry_medium_facets", value: "industry_medium_facets:"+i))
+        }
+        for i in facetsmall{
+            component.queryItems?.append(URLQueryItem(name: "industry_small_facets", value: "industry_small_facets:"+i))
         }
         var req = URLRequest(url: component.url!)
         req.httpMethod = "GET"
@@ -189,7 +195,9 @@ class Communication:ObservableObject{
             }
             if let response = response as? HTTPURLResponse {
                 if 200...299 ~= response.statusCode{
+
                     DispatchQueue.main.async {
+
                         self.facet = try! JSONDecoder().decode(facets.self, from: data)
                         if self.APIData.count > 0{
                             print("ファセット数は",self.facet)

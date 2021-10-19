@@ -60,7 +60,7 @@ struct ContentView: View {
                                         let endRow: Int?  = communication.start + 20
                                         Text("\(startRow!)~\(endRow!)件目")
                                         Spacer()
-                                    
+                                        
                                         Button(
                                             action: {
                                                 print("goforward pushed")
