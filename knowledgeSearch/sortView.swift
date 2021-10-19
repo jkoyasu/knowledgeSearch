@@ -58,7 +58,11 @@ struct MenuViewWithinSafeArea: View {
                                         Button(
                                             action: {
                                                 communication.start = 0
-                                                communication.selectedtype.append(facet.name)
+                                                if communication.selectedtype.contains(facet.name){
+                                                    communication.selectedtype.removeAll(where: {$0 == facet.name})
+                                                }else{
+                                                    communication.selectedtype.append(facet.name)
+                                                }
                                                 communication.get_facet(facettype:communication.selectedtype,facetlarge:communication.selectedlarge,facetmed:communication.selectedmed,facetsmall:communication.selectedsmall)
                                                 communication.searchfacet(facettype:communication.selectedtype,facetlarge:communication.selectedlarge,facetmed:communication.selectedmed,facetsmall:communication.selectedsmall)
                                             }){
@@ -74,7 +78,12 @@ struct MenuViewWithinSafeArea: View {
                                         Button(
                                             action: {
                                                 communication.start = 0
-                                                communication.selectedlarge.append(facet.name)
+//                                                communication.selectedlarge.append(facet.name)
+                                                if communication.selectedlarge.contains(facet.name){
+                                                    communication.selectedlarge.removeAll(where: {$0 == facet.name})
+                                                }else{
+                                                    communication.selectedlarge.append(facet.name)
+                                                }
                                                 communication.get_facet(facettype:communication.selectedtype,facetlarge:communication.selectedlarge,facetmed:communication.selectedmed,facetsmall:communication.selectedsmall)
                                                 communication.searchfacet(facettype:communication.selectedtype,facetlarge:communication.selectedlarge,facetmed:communication.selectedmed,facetsmall:communication.selectedsmall)
                                             }){
@@ -90,7 +99,12 @@ struct MenuViewWithinSafeArea: View {
                                         Button(
                                             action: {
                                                 communication.start = 0
-                                                communication.selectedmed.append(facet.name)
+//                                                communication.selectedmed.append(facet.name)
+                                                if communication.selectedmed.contains(facet.name){
+                                                    communication.selectedmed.removeAll(where: {$0 == facet.name})
+                                                }else{
+                                                    communication.selectedmed.append(facet.name)
+                                                }
                                                 communication.get_facet(facettype:communication.selectedtype,facetlarge:communication.selectedlarge,facetmed:communication.selectedmed,facetsmall:communication.selectedsmall)
                                                 communication.searchfacet(facettype:communication.selectedtype,facetlarge:communication.selectedlarge,facetmed:communication.selectedmed,facetsmall:communication.selectedsmall)
                                             }){
@@ -106,7 +120,12 @@ struct MenuViewWithinSafeArea: View {
                                         Button(
                                             action: {
                                                 communication.start = 0
-                                                communication.selectedsmall.append(facet.name)
+//                                                communication.selectedsmall.append(facet.name)
+                                                if communication.selectedsmall.contains(facet.name){
+                                                    communication.selectedsmall.removeAll(where: {$0 == facet.name})
+                                                }else{
+                                                    communication.selectedsmall.append(facet.name)
+                                                }
                                                 communication.get_facet(facettype:communication.selectedtype,facetlarge:communication.selectedlarge,facetmed:communication.selectedmed,facetsmall:communication.selectedsmall)
                                                 communication.searchfacet(facettype:communication.selectedtype,facetlarge:communication.selectedlarge,facetmed:communication.selectedmed,facetsmall:communication.selectedsmall)
                                             }){
